@@ -11,7 +11,6 @@ export const leadership = [
 ];
 
 export const jointConveners = [
-  "Al Nahiyan",
   "Hasan Al Banna",
   "Arnab Das",
   "Ibnul Farezi",
