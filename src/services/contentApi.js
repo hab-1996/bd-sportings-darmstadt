@@ -97,6 +97,7 @@ async function fetchSheet(sheetName) {
   const query = new URLSearchParams({
     tqx: "out:csv",
     sheet: sheetName,
+    headers: "1",
     cacheBust: String(Date.now()),
   });
   const url = `https://docs.google.com/spreadsheets/d/${CONTENT_SHEET_ID}/gviz/tq?${query}`;
