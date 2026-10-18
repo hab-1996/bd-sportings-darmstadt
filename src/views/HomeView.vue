@@ -1,11 +1,11 @@
 <script setup>
+import { computed } from "vue";
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
-import { fixtureStatus } from "../data/fixtures";
-import { membershipFormUrl } from "../data/links";
-import { newsItems } from "../data/news";
+import { useSiteContent } from "../composables/useSiteContent";
 
-const featuredNews = newsItems[0];
+const content = useSiteContent();
+const featuredNews = computed(() => content.newsItems[0]);
 </script>
 
 <template>
@@ -14,18 +14,20 @@ const featuredNews = newsItems[0];
     <section id="top" class="hero">
       <div class="hero-stripe" aria-hidden="true"></div>
       <div class="hero-copy">
-        <p class="eyebrow">Darmstadt · Established 2024</p>
-        <h1>One club.<br /><span>Many stories.</span></h1>
+        <p class="eyebrow">{{ content.homepage.hero.eyebrow }}</p>
+        <h1>
+          {{ content.homepage.hero.title_line_1 }}<br />
+          <span>{{ content.homepage.hero.title_line_2 }}</span>
+        </h1>
         <p class="hero-lead">
-          BD Sporting’s Darmstadt brings people together through sport,
-          friendship and community—on and beyond the field.
+          {{ content.homepage.hero.lead }}
         </p>
         <div class="hero-actions">
           <RouterLink class="button primary" :to="{ hash: '#membership' }">
-            Become a member <span>↗</span>
+            {{ content.homepage.hero.primary_button }} <span>↗</span>
           </RouterLink>
           <RouterLink class="button ghost" :to="{ hash: '#about' }">
-            Discover our club
+            {{ content.homepage.hero.secondary_button }}
           </RouterLink>
         </div>
       </div>
@@ -37,36 +39,23 @@ const featuredNews = newsItems[0];
         />
       </div>
       <div class="hero-foot">
-        <span>Play together</span>
-        <span>Grow together</span>
-        <span>Represent together</span>
+        <span>{{ content.homepage.hero.value_1 }}</span>
+        <span>{{ content.homepage.hero.value_2 }}</span>
+        <span>{{ content.homepage.hero.value_3 }}</span>
       </div>
     </section>
 
     <section id="about" class="statement">
-      <p class="section-label">Who we are</p>
+      <p class="section-label">{{ content.homepage.about.label }}</p>
       <div class="statement-grid">
-        <h2>Built by the community.<br />Driven by the game.</h2>
+        <h2>
+          {{ content.homepage.about.heading_line_1 }}<br />
+          {{ content.homepage.about.heading_line_2 }}
+        </h2>
         <div>
-          <p>
-            BD Sporting’s Darmstadt is a community-focused sports club
-            established in 2024 in Darmstadt, Germany. We bring together
-            members of the Bangladeshi community through sporting activities,
-            friendly matches, tournaments and community events.
-          </p>
-          <p>
-            Our club is about more than competition. It is a place where
-            people can stay active, build lasting friendships and represent
-            our community with pride. Guided by our values of
-            <strong>Brotherhood, Respect and Unity</strong>, we aim to create a
-            welcoming environment where teamwork, sportsmanship and community
-            spirit come first.
-          </p>
-          <p>
-            As we continue to grow, our goal is to provide more opportunities
-            for people to participate, develop their abilities and share
-            memorable experiences—both on and beyond the playing field.
-          </p>
+          <p>{{ content.homepage.about.paragraph_1 }}</p>
+          <p>{{ content.homepage.about.paragraph_2 }}</p>
+          <p>{{ content.homepage.about.paragraph_3 }}</p>
         </div>
       </div>
     </section>
@@ -74,15 +63,18 @@ const featuredNews = newsItems[0];
     <section id="updates" class="updates">
       <div class="section-heading dark">
         <div>
-          <p class="section-label">Club updates</p>
-          <h2>Follow the season.</h2>
+          <p class="section-label">{{ content.homepage.updates.label }}</p>
+          <h2>{{ content.homepage.updates.heading }}</h2>
         </div>
-        <p>Match reports, results, announcements and moments from the club.</p>
+        <p>{{ content.homepage.updates.intro }}</p>
       </div>
       <div class="update-grid">
         <article class="update-lead">
           <div class="update-art">
-            <img src="/club-logo.png" alt="BD Sporting’s Darmstadt club crest" />
+            <img
+              :src="featuredNews.imageUrl || '/club-logo.png'"
+              :alt="featuredNews.imageUrl ? featuredNews.title : 'BD Sporting’s Darmstadt club crest'"
+            />
           </div>
           <div class="update-copy">
             <span class="pill">{{ featuredNews.category }}</span>
@@ -91,11 +83,11 @@ const featuredNews = newsItems[0];
           </div>
         </article>
         <aside class="scoreboard">
-          <p class="score-label">{{ fixtureStatus.label }}</p>
+          <p class="score-label">{{ content.fixtureStatus.label }}</p>
           <div class="score-empty">
             <span aria-hidden="true">◷</span>
-            <h3>{{ fixtureStatus.title }}</h3>
-            <p>{{ fixtureStatus.summary }}</p>
+            <h3>{{ content.fixtureStatus.title }}</h3>
+            <p>{{ content.fixtureStatus.summary }}</p>
           </div>
         </aside>
       </div>
@@ -103,21 +95,23 @@ const featuredNews = newsItems[0];
 
     <section id="membership" class="membership">
       <div>
-        <p class="section-label light">Join BD Sporting’s</p>
-        <h2>Your next team<br />starts here.</h2>
+        <p class="section-label light">{{ content.homepage.membership.label }}</p>
+        <h2>
+          {{ content.homepage.membership.heading_line_1 }}<br />
+          {{ content.homepage.membership.heading_line_2 }}
+        </h2>
       </div>
       <div class="membership-copy">
         <p>
-          Whether you want to play, volunteer or support the club, there is a
-          place for you in our community.
+          {{ content.homepage.membership.body }}
         </p>
         <a
           class="button white"
-          :href="membershipFormUrl"
+          :href="content.settings.membershipFormUrl"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Get involved <span>↗</span>
+          {{ content.homepage.membership.button }} <span>↗</span>
         </a>
       </div>
     </section>

@@ -106,6 +106,9 @@ footer { padding: 4rem clamp(1.5rem,5vw,5rem) 2rem; background: #c9eafa; color: 
 .people-grid { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .person-card { min-height: 160px; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; padding: 1.6rem; background: var(--white); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .person-card.featured { min-height: 250px; padding: clamp(2rem,4vw,3.5rem); background: #d7efff; border: 1px solid var(--line); }
+.person-card-top,.advisor-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.person-photo { width: 72px; height: 72px; flex: 0 0 auto; object-fit: cover; object-position: center; border-radius: 50%; border: 3px solid rgba(255,255,255,.92); box-shadow: 0 10px 28px rgba(23,58,94,.16); background: var(--white); }
+.person-card.featured .person-photo { width: 112px; height: 112px; }
 .person-number { color: var(--green); font-size: .75rem; font-weight: 800; letter-spacing: .15em; }
 .person-card h3,.advisor-card h3 { margin: 0; font-size: clamp(1.15rem,1.7vw,1.55rem); line-height: 1.1; letter-spacing: -.03em; }
 .person-card.featured h3 { font-size: clamp(1.8rem,3vw,3.3rem); }
@@ -113,7 +116,8 @@ footer { padding: 4rem clamp(1.5rem,5vw,5rem) 2rem; background: #c9eafa; color: 
 .advisory-section { padding: clamp(5rem,9vw,9rem) clamp(1.5rem,7vw,8rem); background: #c9eafa; border-top: 1px solid var(--line); }
 .advisor-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; }
 .advisor-card { min-height: 190px; padding: 1.6rem; display: flex; flex-direction: column; justify-content: flex-end; background: rgba(255,255,255,.66); border: 1px solid rgba(23,58,94,.14); }
-.advisor-card > span { margin-bottom: auto; color: var(--green); font-size: .75rem; font-weight: 800; letter-spacing: .15em; }
+.advisor-card-top { margin-bottom: auto; }
+.advisor-card-top > span { color: var(--green); font-size: .75rem; font-weight: 800; letter-spacing: .15em; }
 
 @media (max-width: 900px) {
   .menu-button { display: flex; flex-direction: column; gap: 7px; z-index: 60; }

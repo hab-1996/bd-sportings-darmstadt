@@ -11,7 +11,7 @@ This folder contains the standalone Vue 3 conversion of the BD Sporting’s Darm
 - Regular CSS with CSS variables
 - npm
 
-There is no backend in this project yet. News, events, fixtures, results, and committee content live in `src/data/` so those imports can later be replaced by FastAPI calls without redesigning the views.
+There is no traditional backend in this project yet. Public website content is prepared for a Google Sheets content manager, with the original files in `src/data/` retained as a safe fallback. FastAPI can replace the content service later without redesigning the views.
 
 ## Requirements
 
@@ -46,6 +46,20 @@ npm run preview
 
 - `/` — homepage
 - `/committee` — committee page
+
+## Content management
+
+The site can load approved public content from the Google Sheet named **BD Sporting Website Content**. Club editors can update homepage text, committee members and photos, news, events, fixtures, results and site settings without editing Vue files.
+
+The integration uses `src/services/contentApi.js` and `src/composables/useSiteContent.js`. If the Sheet cannot be reached, the website automatically uses the local files in `src/data/`, so a permission or network problem does not take the site offline.
+
+For the one-time connection, the Sheet must be readable by website visitors. Give it **Anyone with the link — Viewer** access. Do not place private member records, passwords, payment details or unpublished personal data in this Sheet.
+
+After that one-time connection, the normal workflow is:
+
+1. Edit a row in the Google Sheet.
+2. Set `Published` to `Yes` when the content is ready.
+3. Reload the website. No Git commit or Cloudflare deployment is required for content-only updates.
 
 ## Project structure
 

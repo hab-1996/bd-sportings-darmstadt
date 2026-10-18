@@ -1,13 +1,9 @@
 <script setup>
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
-import {
-  advisoryBoard,
-  committeeDetails,
-  committeeMembers,
-  jointConveners,
-  leadership,
-} from "../data/committee";
+import { useSiteContent } from "../composables/useSiteContent";
+
+const content = useSiteContent();
 </script>
 
 <template>
@@ -21,10 +17,10 @@ import {
       <div class="committee-intro">
         <p>
           The Ad Hoc Committee of BD Sporting’s Darmstadt was formed on
-          {{ committeeDetails.formationDate }} for a {{ committeeDetails.term }}.
+          {{ content.committeeDetails.formationDate }} for a {{ content.committeeDetails.term }}.
         </p>
         <span>
-          Established {{ committeeDetails.establishedYear }} · {{ committeeDetails.location }}
+          Established {{ content.committeeDetails.establishedYear }} · {{ content.committeeDetails.location }}
         </span>
       </div>
     </section>
@@ -36,8 +32,11 @@ import {
           <h2>Committee leadership</h2>
         </div>
         <div class="leadership-grid">
-          <article v-for="person in leadership" :key="person.name" class="person-card featured">
-            <span class="person-number">{{ person.number }}</span>
+          <article v-for="person in content.leadership" :key="person.name" class="person-card featured">
+            <div class="person-card-top">
+              <span class="person-number">{{ person.number }}</span>
+              <img v-if="person.photoUrl" class="person-photo" :src="person.photoUrl" :alt="person.name" />
+            </div>
             <div>
               <h3>{{ person.name }}</h3>
               <p>{{ person.role }}</p>
@@ -52,8 +51,11 @@ import {
           <h2>Joint Conveners</h2>
         </div>
         <div class="people-grid">
-          <article v-for="person in jointConveners" :key="person.name" class="person-card">
-            <span class="person-number">{{ person.number }}</span>
+          <article v-for="person in content.jointConveners" :key="person.name" class="person-card">
+            <div class="person-card-top">
+              <span class="person-number">{{ person.number }}</span>
+              <img v-if="person.photoUrl" class="person-photo" :src="person.photoUrl" :alt="person.name" />
+            </div>
             <div>
               <h3>{{ person.name }}</h3>
               <p>{{ person.role }}</p>
@@ -68,8 +70,11 @@ import {
           <h2>Committee Members</h2>
         </div>
         <div class="people-grid">
-          <article v-for="person in committeeMembers" :key="person.name" class="person-card">
-            <span class="person-number">{{ person.number }}</span>
+          <article v-for="person in content.committeeMembers" :key="person.name" class="person-card">
+            <div class="person-card-top">
+              <span class="person-number">{{ person.number }}</span>
+              <img v-if="person.photoUrl" class="person-photo" :src="person.photoUrl" :alt="person.name" />
+            </div>
             <div>
               <h3>{{ person.name }}</h3>
               <p>{{ person.role }}</p>
@@ -85,8 +90,11 @@ import {
         <h2>Advisory Board</h2>
       </div>
       <div class="advisor-grid">
-        <article v-for="person in advisoryBoard" :key="person.name" class="advisor-card">
-          <span>{{ person.number }}</span>
+        <article v-for="person in content.advisoryBoard" :key="person.name" class="advisor-card">
+          <div class="advisor-card-top">
+            <span>{{ person.number }}</span>
+            <img v-if="person.photoUrl" class="person-photo" :src="person.photoUrl" :alt="person.name" />
+          </div>
           <h3>{{ person.name }}</h3>
           <p>{{ person.role }}</p>
         </article>

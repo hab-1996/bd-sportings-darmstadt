@@ -1,10 +1,11 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { RouterLink, useRoute } from "vue-router";
-import { membershipFormUrl } from "../data/links";
+import { useSiteContent } from "../composables/useSiteContent";
 import ClubLogo from "./ClubLogo.vue";
 
 const route = useRoute();
+const content = useSiteContent();
 const menuOpen = ref(false);
 
 const navItems = computed(() => {
@@ -69,7 +70,7 @@ onBeforeUnmount(() => window.removeEventListener("keydown", handleEscape));
       </RouterLink>
       <a
         class="nav-cta"
-        :href="membershipFormUrl"
+        :href="content.settings.membershipFormUrl"
         target="_blank"
         rel="noopener noreferrer"
         @click="closeMenu"

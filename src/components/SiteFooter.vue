@@ -1,13 +1,20 @@
 <script setup>
+import { computed } from "vue";
 import { RouterLink } from "vue-router";
+import { useSiteContent } from "../composables/useSiteContent";
 import ClubLogo from "./ClubLogo.vue";
 
-defineProps({
+const props = defineProps({
   taglineLines: {
     type: Array,
-    default: () => ["Football. Cricket. Community.", "Proudly based in Darmstadt."],
+    default: null,
   },
 });
+
+const content = useSiteContent();
+const resolvedTaglineLines = computed(
+  () => props.taglineLines || [content.settings.footerLine1, content.settings.footerLine2],
+);
 
 const footerLinks = [
   { label: "Home", to: { name: "home" } },
@@ -23,8 +30,8 @@ const footerLinks = [
     <div class="footer-main">
       <ClubLogo />
       <p>
-        <template v-for="(line, index) in taglineLines" :key="line">
-          {{ line }}<br v-if="index < taglineLines.length - 1" />
+        <template v-for="(line, index) in resolvedTaglineLines" :key="line">
+          {{ line }}<br v-if="index < resolvedTaglineLines.length - 1" />
         </template>
       </p>
     </div>
@@ -37,12 +44,14 @@ const footerLinks = [
       <span>© 2026 BD Sporting’s Darmstadt</span>
       <span>Established 2024</span>
     </div>
-    <div class="test-notice" role="note" aria-label="Website test notice">
-      <strong>Test website</strong>
-      <span>
-        This site is currently in a public testing phase. Content may change,
-        and comments or submissions are not being accepted at this time.
-      </span>
+    <div
+      v-if="content.settings.testNoticeEnabled"
+      class="test-notice"
+      role="note"
+      aria-label="Website test notice"
+    >
+      <strong>{{ content.settings.testNoticeTitle }}</strong>
+      <span>{{ content.settings.testNoticeText }}</span>
     </div>
   </footer>
 </template>
