@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from "vue";
-import { RouterLink } from "vue-router";
 import { useSiteContent } from "../composables/useSiteContent";
 import ClubLogo from "./ClubLogo.vue";
 
@@ -16,14 +15,6 @@ const resolvedTaglineLines = computed(
   () => props.taglineLines || [content.settings.footerLine1, content.settings.footerLine2],
 );
 
-const footerLinks = [
-  { label: "Home", to: { name: "home" } },
-  { label: "About", to: { name: "home", hash: "#about" } },
-  { label: "Committee", to: { name: "committee" } },
-  { label: "Updates", to: { name: "home", hash: "#updates" } },
-  { label: "Membership", to: { name: "home", hash: "#membership" } },
-  { label: "Members", to: { name: "members" } },
-];
 </script>
 
 <template>
@@ -35,11 +26,6 @@ const footerLinks = [
           {{ line }}<br v-if="index < resolvedTaglineLines.length - 1" />
         </template>
       </p>
-    </div>
-    <div class="footer-links">
-      <RouterLink v-for="link in footerLinks" :key="link.label" :to="link.to">
-        {{ link.label }}
-      </RouterLink>
     </div>
     <div class="footer-bottom">
       <span>© 2026 BD Sporting’s Darmstadt</span>

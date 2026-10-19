@@ -7,6 +7,7 @@ const SHEET_NAMES = [
   "News",
   "Events",
   "Fixtures & Results",
+  "Gallery",
 ];
 
 const FIRST_HEADER_BY_SHEET = {
@@ -16,6 +17,7 @@ const FIRST_HEADER_BY_SHEET = {
   News: "id",
   Events: "id",
   "Fixtures & Results": "id",
+  Gallery: "order",
 };
 
 function parseCsv(text) {
@@ -91,6 +93,25 @@ function safeUrl(value) {
   } catch {
     return "";
   }
+}
+
+function extractDriveFileId(value) {
+  try {
+    const url = new URL(String(value).trim());
+    const queryId = url.searchParams.get("id");
+    if (queryId) return queryId;
+    return url.pathname.match(/\/d\/([^/]+)/)?.[1] || "";
+  } catch {
+    return "";
+  }
+}
+
+function toPublicPhotoUrl(value) {
+  const fileId = extractDriveFileId(value);
+  if (fileId) {
+    return `https://drive.google.com/thumbnail?id=${encodeURIComponent(fileId)}&sz=w1600`;
+  }
+  return safeUrl(value);
 }
 
 async function fetchSheet(sheetName) {
@@ -188,6 +209,17 @@ export async function loadCmsContent() {
     }))
     .sort((a, b) => a.order - b.order);
 
+  const gallery = sheets.Gallery.filter((row) => isPublished(row.published))
+    .map((row, index) => ({
+      id: `gallery-${index + 1}-${row.order}`,
+      order: toOrder(row.order),
+      caption: String(row.caption || "").trim(),
+      photoUrl: toPublicPhotoUrl(row.photo_url),
+      photoFailed: false,
+    }))
+    .filter((photo) => photo.photoUrl)
+    .sort((a, b) => a.order - b.order);
+
   return {
     settings,
     homepage,
@@ -196,6 +228,7 @@ export async function loadCmsContent() {
     events,
     fixtures: matchRows.filter((row) => row.type.toLowerCase() !== "result"),
     results: matchRows.filter((row) => row.type.toLowerCase() === "result"),
+    gallery,
   };
 }
 

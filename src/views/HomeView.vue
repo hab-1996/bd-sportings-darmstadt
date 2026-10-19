@@ -1,11 +1,9 @@
 <script setup>
-import { computed } from "vue";
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
 import { useSiteContent } from "../composables/useSiteContent";
 
 const content = useSiteContent();
-const featuredNews = computed(() => content.newsItems[0]);
 </script>
 
 <template>
@@ -57,39 +55,6 @@ const featuredNews = computed(() => content.newsItems[0]);
           <p>{{ content.homepage.about.paragraph_2 }}</p>
           <p>{{ content.homepage.about.paragraph_3 }}</p>
         </div>
-      </div>
-    </section>
-
-    <section id="updates" class="updates">
-      <div class="section-heading dark">
-        <div>
-          <p class="section-label">{{ content.homepage.updates.label }}</p>
-          <h2>{{ content.homepage.updates.heading }}</h2>
-        </div>
-        <p>{{ content.homepage.updates.intro }}</p>
-      </div>
-      <div class="update-grid">
-        <article class="update-lead">
-          <div class="update-art">
-            <img
-              :src="featuredNews.imageUrl || '/club-logo.png'"
-              :alt="featuredNews.imageUrl ? featuredNews.title : 'BD Sporting’s Darmstadt club crest'"
-            />
-          </div>
-          <div class="update-copy">
-            <span class="pill">{{ featuredNews.category }}</span>
-            <h3>{{ featuredNews.title }}</h3>
-            <p>{{ featuredNews.summary }}</p>
-          </div>
-        </article>
-        <aside class="scoreboard">
-          <p class="score-label">{{ content.fixtureStatus.label }}</p>
-          <div class="score-empty">
-            <span aria-hidden="true">◷</span>
-            <h3>{{ content.fixtureStatus.title }}</h3>
-            <p>{{ content.fixtureStatus.summary }}</p>
-          </div>
-        </aside>
       </div>
     </section>
 

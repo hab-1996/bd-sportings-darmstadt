@@ -78,6 +78,7 @@ const state = reactive({
   fixtures: [...staticFixtures],
   results: [...staticResults],
   members: [],
+  gallery: [],
   fixtureStatus,
   cms: {
     loading: false,
@@ -134,6 +135,7 @@ function applyCmsContent(content) {
   replaceArray(state.events, content.events);
   replaceArray(state.fixtures, content.fixtures);
   replaceArray(state.results, content.results);
+  replaceArray(state.gallery, content.gallery);
   state.cms.connected = true;
 }
 

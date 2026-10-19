@@ -12,7 +12,8 @@ const navItems = computed(() => {
   const items = [
     { label: "About", to: { name: "home", hash: "#about" } },
     { label: "Committee", to: { name: "committee" } },
-    { label: "Updates", to: { name: "home", hash: "#updates" } },
+    { label: "Updates", to: { name: "updates" } },
+    { label: "Gallery", to: { name: "gallery" } },
     { label: "Membership", to: { name: "home", hash: "#membership" } },
     { label: "Members", to: { name: "members" } },
   ];
@@ -67,6 +68,8 @@ onBeforeUnmount(() => window.removeEventListener("keydown", handleEscape));
         :class="{
           active:
             (item.label === 'Committee' && route.name === 'committee') ||
+            (item.label === 'Updates' && route.name === 'updates') ||
+            (item.label === 'Gallery' && route.name === 'gallery') ||
             (item.label === 'Members' && route.name === 'members'),
         }"
         @click="closeMenu"
