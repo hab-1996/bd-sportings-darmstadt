@@ -22,6 +22,7 @@ const footerLinks = [
   { label: "Committee", to: { name: "committee" } },
   { label: "Updates", to: { name: "home", hash: "#updates" } },
   { label: "Membership", to: { name: "home", hash: "#membership" } },
+  { label: "Members", to: { name: "members" } },
 ];
 </script>
 

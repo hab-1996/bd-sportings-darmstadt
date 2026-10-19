@@ -15,6 +15,7 @@ import {
 import { membershipFormUrl } from "../data/links";
 import { newsItems as staticNewsItems } from "../data/news";
 import { loadCmsContent } from "../services/contentApi";
+import { loadMembers } from "../services/memberApi";
 
 const withPhoto = (people) => people.map((person) => ({ ...person, photoUrl: "" }));
 
@@ -76,8 +77,14 @@ const state = reactive({
   events: [...staticEvents],
   fixtures: [...staticFixtures],
   results: [...staticResults],
+  members: [],
   fixtureStatus,
   cms: {
+    loading: false,
+    connected: false,
+    error: "",
+  },
+  membersCms: {
     loading: false,
     connected: false,
     error: "",
@@ -132,15 +139,38 @@ function applyCmsContent(content) {
 
 async function load() {
   state.cms.loading = true;
+  state.membersCms.loading = true;
   state.cms.error = "";
-  try {
-    applyCmsContent(await loadCmsContent());
-  } catch (error) {
+  state.membersCms.error = "";
+
+  const [contentResult, membersResult] = await Promise.allSettled([
+    loadCmsContent(),
+    loadMembers(),
+  ]);
+
+  if (contentResult.status === "fulfilled") {
+    applyCmsContent(contentResult.value);
+  } else {
     state.cms.connected = false;
-    state.cms.error = error instanceof Error ? error.message : "Content service unavailable";
-  } finally {
-    state.cms.loading = false;
+    state.cms.error =
+      contentResult.reason instanceof Error
+        ? contentResult.reason.message
+        : "Content service unavailable";
   }
+
+  if (membersResult.status === "fulfilled") {
+    replaceArray(state.members, membersResult.value);
+    state.membersCms.connected = true;
+  } else {
+    state.membersCms.connected = false;
+    state.membersCms.error =
+      membersResult.reason instanceof Error
+        ? membersResult.reason.message
+        : "Members service unavailable";
+  }
+
+  state.cms.loading = false;
+  state.membersCms.loading = false;
 }
 
 export function useSiteContent() {

@@ -14,9 +14,10 @@ const navItems = computed(() => {
     { label: "Committee", to: { name: "committee" } },
     { label: "Updates", to: { name: "home", hash: "#updates" } },
     { label: "Membership", to: { name: "home", hash: "#membership" } },
+    { label: "Members", to: { name: "members" } },
   ];
 
-  return route.name === "committee"
+  return route.name !== "home"
     ? [{ label: "Home", to: { name: "home" } }, ...items]
     : items;
 });
@@ -63,7 +64,11 @@ onBeforeUnmount(() => window.removeEventListener("keydown", handleEscape));
         v-for="item in navItems"
         :key="item.label"
         :to="item.to"
-        :class="{ active: item.label === 'Committee' && route.name === 'committee' }"
+        :class="{
+          active:
+            (item.label === 'Committee' && route.name === 'committee') ||
+            (item.label === 'Members' && route.name === 'members'),
+        }"
         @click="closeMenu"
       >
         {{ item.label }}

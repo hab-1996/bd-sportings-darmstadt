@@ -119,6 +119,26 @@ footer { padding: 4rem clamp(1.5rem,5vw,5rem) 2rem; background: #c9eafa; color: 
 .advisor-card-top { margin-bottom: auto; }
 .advisor-card-top > span { color: var(--green); font-size: .75rem; font-weight: 800; letter-spacing: .15em; }
 
+.members-page { background: var(--paper); }
+.members-hero { min-height: 530px; display: grid; grid-template-columns: 1.2fr .8fr; gap: clamp(3rem,8vw,9rem); align-items: end; padding: clamp(5rem,9vw,8rem) clamp(1.5rem,7vw,8rem); background: linear-gradient(135deg,#e8f7ff 0%,#c7eaff 100%); border-bottom: 1px solid var(--line); }
+.members-hero h1 { margin: 0; font-size: clamp(4rem,8.5vw,8.4rem); line-height: .84; letter-spacing: -.075em; text-transform: uppercase; }
+.members-hero h1 span { color: var(--green); }
+.members-intro { border-top: 1px solid var(--ink); padding-top: 1.5rem; }
+.members-intro p { margin: 0 0 2rem; font-size: clamp(1.2rem,2vw,1.55rem); font-weight: 700; }
+.members-intro span { color: rgba(23,58,94,.62); text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; font-weight: 800; }
+.members-content { padding: clamp(5rem,9vw,9rem) clamp(1.5rem,7vw,8rem); }
+.members-heading { display: grid; grid-template-columns: .42fr 1fr; gap: 2rem; align-items: end; margin-bottom: 2.5rem; }
+.members-heading .section-label { margin: 0; }
+.members-heading h2 { margin: 0; font-size: clamp(2.4rem,4.5vw,4.8rem); line-height: .95; letter-spacing: -.055em; text-transform: uppercase; }
+.member-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1rem; }
+.member-card { overflow: hidden; background: var(--white); border: 1px solid var(--line); }
+.member-photo-frame { position: relative; aspect-ratio: 4/5; overflow: hidden; display: grid; place-items: center; background: linear-gradient(145deg,#d7efff,#b9e1f8); }
+.member-photo { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center top; transition: transform .25s ease; }
+.member-card:hover .member-photo { transform: scale(1.025); }
+.member-initials { display: grid; place-items: center; width: 44%; aspect-ratio: 1; border-radius: 50%; background: rgba(255,255,255,.76); color: var(--green); font-size: clamp(2rem,4vw,4rem); font-weight: 800; letter-spacing: -.05em; }
+.member-card h3 { margin: 0; padding: 1.35rem 1.4rem 1.5rem; font-size: clamp(1.12rem,1.6vw,1.45rem); line-height: 1.15; letter-spacing: -.025em; }
+.members-status { margin: 0; padding: 2rem; background: rgba(255,255,255,.66); border: 1px solid var(--line); color: rgba(23,58,94,.72); font-weight: 700; }
+
 @media (max-width: 900px) {
   .menu-button { display: flex; flex-direction: column; gap: 7px; z-index: 60; }
   .menu-button span { display: block; width: 27px; height: 2px; background: var(--ink); transition: transform .2s ease; }
@@ -135,8 +155,10 @@ footer { padding: 4rem clamp(1.5rem,5vw,5rem) 2rem; background: #c9eafa; color: 
   .hero-foot span { padding: 1rem 1.5rem; }
   .statement-grid,.membership { grid-template-columns: 1fr; }
   .committee-hero { grid-template-columns: 1fr; min-height: auto; }
+  .members-hero { grid-template-columns: 1fr; min-height: auto; }
   .people-grid { grid-template-columns: repeat(2,1fr); }
   .advisor-grid { grid-template-columns: repeat(2,1fr); }
+  .member-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
   .update-grid { grid-template-columns: 1fr; }
   .scoreboard { min-height: 330px; }
 }
@@ -156,8 +178,14 @@ footer { padding: 4rem clamp(1.5rem,5vw,5rem) 2rem; background: #c9eafa; color: 
   .footer-main p { text-align: left; }
   .test-notice { align-items: flex-start; flex-direction: column; gap: .45rem; }
   .committee-section-heading { grid-template-columns: 1fr; gap: .7rem; }
+  .members-heading { grid-template-columns: 1fr; gap: .7rem; }
   .leadership-grid,.people-grid,.advisor-grid { grid-template-columns: 1fr; }
+  .member-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .person-card { min-height: 145px; }
+}
+
+@media (max-width: 420px) {
+  .member-grid { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
