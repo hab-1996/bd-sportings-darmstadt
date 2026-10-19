@@ -11,6 +11,7 @@ export const leadership = [
 ];
 
 export const jointConveners = [
+  "Al Nahiyan",
   "Hasan Al Banna",
   "Arnab Das",
   "Ibnul Farezi",
@@ -28,8 +29,8 @@ export const jointConveners = [
 export const committeeMembers = [
   "Samrat Mia",
   "Al Biruni Reza",
-  "Ontu Saha",
-  "Tayfur Rahman",
+  "Antu Saha",
+  "Taifur Rahman Hridoy",
   "Niaz Kobir Enan",
   "Jahirul Islam Arman",
   "Saiful Islam",
@@ -45,11 +46,11 @@ export const advisoryBoard = [
   "Pritom Saha",
   "Imdadul Haque Nayeem",
   "Tahrim Eshrak",
-  "Shaukat Murad",
+  "Showkat Murad",
   "Rakib Sizar",
   "Mahbub Rony",
   "Bayezidul Islam",
-  "Md Asif Rahman",
+  "Md Asifur Rahman",
 ].map((name, index) => ({
   number: String(index + 1).padStart(2, "0"),
   name,
