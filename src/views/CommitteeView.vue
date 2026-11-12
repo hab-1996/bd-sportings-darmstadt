@@ -65,7 +65,7 @@ const content = useSiteContent();
       <div class="committee-section">
         <div class="committee-section-heading">
           <p class="section-label">Committee</p>
-          <h2>Committee Members</h2>
+          <h2>General Members</h2>
         </div>
         <div class="people-grid">
           <article v-for="person in content.committeeMembers" :key="person.name" class="person-card">
