@@ -34,7 +34,6 @@ const content = useSiteContent();
         <div class="leadership-grid">
           <article v-for="person in content.leadership" :key="person.name" class="person-card featured">
             <div class="person-card-top">
-              <span class="person-number">{{ person.number }}</span>
               <img v-if="person.photoUrl" class="person-photo" :src="person.photoUrl" :alt="person.name" />
             </div>
             <div>
@@ -53,7 +52,6 @@ const content = useSiteContent();
         <div class="people-grid">
           <article v-for="person in content.jointConveners" :key="person.name" class="person-card">
             <div class="person-card-top">
-              <span class="person-number">{{ person.number }}</span>
               <img v-if="person.photoUrl" class="person-photo" :src="person.photoUrl" :alt="person.name" />
             </div>
             <div>
@@ -72,7 +70,6 @@ const content = useSiteContent();
         <div class="people-grid">
           <article v-for="person in content.committeeMembers" :key="person.name" class="person-card">
             <div class="person-card-top">
-              <span class="person-number">{{ person.number }}</span>
               <img v-if="person.photoUrl" class="person-photo" :src="person.photoUrl" :alt="person.name" />
             </div>
             <div>
@@ -92,7 +89,6 @@ const content = useSiteContent();
       <div class="advisor-grid">
         <article v-for="person in content.advisoryBoard" :key="person.name" class="advisor-card">
           <div class="advisor-card-top">
-            <span>{{ person.number }}</span>
             <img v-if="person.photoUrl" class="person-photo" :src="person.photoUrl" :alt="person.name" />
           </div>
           <h3>{{ person.name }}</h3>
